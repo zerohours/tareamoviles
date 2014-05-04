@@ -1,22 +1,52 @@
 package sv.ues.fia.moviles;
 
+import sv.ues.fia.moviles.db.ControlBDTarea;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class TareaActivity extends Activity {
+public class TareaActivity extends ListActivity {
+
+	String[] menu = { "Tabla Docente", "LLenar Base de Datos" };
+	String[] activities = { "DocenteMenuActivity" };
+
+	ControlBDTarea BDhelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_tarea);
+		setListAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, menu));
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tarea, menu);
-		return true;
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (position != 3) {
+			String nombreValue = activities[position];
+			try {
+				Class<?> clase = Class
+						.forName("sv.ues.fia.moviles.controlador."
+								+ nombreValue);
+				Intent inte = new Intent(this, clase);
+
+				this.startActivity(inte);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			// CODIGO PARA LLENAR BASE DE DATOS
+			System.out.println("=== LLENADO DE LA BD ===");
+			BDhelper = new ControlBDTarea(this);
+			BDhelper.abrir();
+			// String tost = BDhelper.llenarBD();
+			BDhelper.cerrar();
+			//Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 }

@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.DocenteMenuActivity"
+            android:label="@string/title_activity_docente_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.DocenteInsertarActivity"
+            android:label="@string/title_activity_docente_insertar" >
+        </activity>
     </application>
 
 </manifest>

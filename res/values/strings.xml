@@ -4,5 +4,14 @@
     <string name="app_name">Tarea Moviles</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="idDocente">Id Docente</string>
+    
+    <string name="insertar">Insertar</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="opciones">Opciones:</string>
+    
+    <string name="title_activity_docente_menu">DocenteMenuActivity</string>
+    <string name="title_activity_docente_insertar">DocenteInsertarActivity</string>
 
 </resources>
