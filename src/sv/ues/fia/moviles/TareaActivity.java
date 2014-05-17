@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 public class TareaActivity extends ListActivity {
 
-	String[] menu = { "Tabla Docente", "LLenar Base de Datos" };
-	String[] activities = { "DocenteMenuActivity" };
+	String[] menu = { "Tabla Docente","Tabla Pregunta","Tabla Categoria","Tabla Detalle Categoria", "LLenar Base de Datos" };
+	String[] activities = { "DocenteMenuActivity","PreguntaMenuActivity","CategoriaMenuActivity","DetalleCategoriaMenuActivity"};
 
 	ControlBDTarea BDhelper;
 
@@ -26,7 +26,7 @@ public class TareaActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		if (position != 3) {
+		if (position != 4) {
 			String nombreValue = activities[position];
 			try {
 				Class<?> clase = Class
@@ -43,7 +43,7 @@ public class TareaActivity extends ListActivity {
 			System.out.println("=== LLENADO DE LA BD ===");
 			BDhelper = new ControlBDTarea(this);
 			BDhelper.abrir();
-			// String tost = BDhelper.llenarBD();
+		  //  String tost = BDhelper.ControlBDTarea();
 			BDhelper.cerrar();
 			//Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
 		}

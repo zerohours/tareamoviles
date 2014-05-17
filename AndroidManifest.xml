@@ -30,6 +30,66 @@
             android:name="sv.ues.fia.moviles.controlador.DocenteInsertarActivity"
             android:label="@string/title_activity_docente_insertar" >
         </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.pregunta.PreguntaInsertarActivity"
+            android:label="@string/title_activity_pregunta_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.pregunta.PreguntaConsultarActivity"
+            android:label="@string/title_activity_pregunta_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.pregunta.PreguntaEliminarActivity"
+            android:label="@string/title_activity_pregunta_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.pregunta.PreguntaActualizarActivity"
+            android:label="@string/title_activity_pregunta_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.categoria.CategoriaInsertarActivity"
+            android:label="@string/title_activity_categoria_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.categoria.CategoriaEliminarActivity"
+            android:label="@string/title_activity_categoria_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.categoria.CategoriaConsultarActivity"
+            android:label="@string/title_activity_categoria_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.categoria.CategoriaActualizarActivity"
+            android:label="@string/title_activity_categoria_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.detallecategoria.DetalleCategoriaInsertarActivity"
+            android:label="@string/title_activity_detalle_categoria_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.detallecategoria.DetalleCategoriaActualizarActivity"
+            android:label="@string/title_activity_detalle_categoria_iactualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.detallecategoria.DetalleCategoriaConsultarActivity"
+            android:label="@string/title_activity_detalle_categoria_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.detallecategoria.DetalleCategoriaEliminarActivity"
+            android:label="@string/title_activity_detalle_categoria_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.PreguntaMenuActivity"
+            android:label="@string/title_activity_pregunta_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.CategoriaMenuActivity"
+            android:label="@string/title_activity_categoria_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.DetalleCategoriaMenuActivity"
+            android:label="@string/title_activity_detalle_categoria_menu" >
+        </activity>
     </application>
 
 </manifest>

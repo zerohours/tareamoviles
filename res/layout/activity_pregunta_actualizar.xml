@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView android:text="@string/idPregunta" />
+
+        <EditText
+            android:id="@+id/editIdpregunta"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/pregunta" />
+
+        <EditText
+            android:id="@+id/editPregunta"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+
+   
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarAlumno"
+            android:text="@string/actualizar" />
+   
+
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/limpiar" />
+    </TableRow>
+
+</TableLayout>
