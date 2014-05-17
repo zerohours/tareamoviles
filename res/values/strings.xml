@@ -33,4 +33,18 @@
 	<string name="id_categoria">Id Categoria</string>
 	<string name="nombre">Nombre</string>
 	<string name="descripcion">Descripcion</string>
+    <string name="idEmail">Email</string>
+    <string name="idPass">Password</string>
+    <string name="idNombreDoc">Nombre</string>
+    <string name="idApell1">Apellido Pri.</string>
+    <string name="idApell2">Apellido Seg.</string>
+    <string name="idFechaNac">Fecha Nac.</string>
+    <string name="idTelefono">Telefono</string>
+    <string name="idEstado">Activo</string>
+    <string name="title_activity_docente_consultar">DocenteConsultarActivity</string>
+    <string name="title_activity_docente_actualizar">DocenteActualizarActivity</string>
+    <string name="title_activity_docente_eliminar">DocenteEliminarActivity</string>
+    <string name="title_activity_ciclo">CicloActivity</string>
+    <string name="title_activity_ciclo_menu">CicloMenuActivity</string>
+
 </resources>

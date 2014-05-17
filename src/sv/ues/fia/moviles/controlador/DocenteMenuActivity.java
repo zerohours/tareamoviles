@@ -32,7 +32,7 @@ public class DocenteMenuActivity extends ListActivity {
 		String nombreValue = activities[position];
 		l.getChildAt(position).setBackgroundColor(Color.rgb(128, 128, 255));
 		try {
-			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador."
+			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.docente."
 					+ nombreValue);
 			Intent inte = new Intent(this, clase);
 			this.startActivity(inte);
