@@ -7,10 +7,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/idDocente" />
+        android:text="@string/idCiclo" />
 
     <EditText
-        android:id="@+id/editIdDocente"
+        android:id="@+id/editIdCiclo"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="number"
@@ -25,7 +25,7 @@
             android:id="@+id/botonConsultar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="consultarDocente"
+            android:onClick="consultarCiclo"
             android:text="@string/consultar" />
 
         <Button
@@ -39,10 +39,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/idEmail" />
+        android:text="@string/idAnio" />
 
     <EditText
-        android:id="@+id/editIdEmail"
+        android:id="@+id/editIdAnio"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:cursorVisible="false"
@@ -55,10 +55,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/idNombreDoc" />
+        android:text="@string/idNumero" />
 
     <EditText
-        android:id="@+id/editIdNombreDoc"
+        android:id="@+id/editIdNumero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:cursorVisible="false"
@@ -67,55 +67,5 @@
         android:focusableInTouchMode="false"
         android:inputType="text"
         android:longClickable="false" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/idApell1" />
-
-    <EditText
-        android:id="@+id/editIdApell1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:enabled="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="text"
-        android:longClickable="false" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/idApell2" />
-
-    <EditText
-        android:id="@+id/editIdApell2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:enabled="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="text"
-        android:longClickable="false" />
-    
-  <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/idTelefono" />
-
-    <EditText
-        android:id="@+id/editIdTelefono"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:cursorVisible="false"
-        android:enabled="false"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:inputType="text"
-        android:longClickable="false" />
-
 
 </LinearLayout>

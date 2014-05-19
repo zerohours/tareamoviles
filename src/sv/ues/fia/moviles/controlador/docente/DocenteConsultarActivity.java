@@ -48,13 +48,13 @@ public class DocenteConsultarActivity extends Activity {
 		helper.abrir();
 		Docente docente = helper.consultarDocente(editIdDocente.getText()
 				.toString());
-		int cont = helper.getCount("docente", "id_docente");
-		System.out.println(cont);
+//		int cont = helper.getCount("docente", "id_docente");
+//		System.out.println(cont);
 		helper.cerrar();
 		if (docente == null)
 			Toast.makeText(
 					this,
-					"Cliente con id " + editIdDocente.getText().toString()
+					"Docente con id " + editIdDocente.getText().toString()
 							+ " no encontrado", Toast.LENGTH_LONG).show();
 		else {
 			editIdEmail.setText(docente.getEmail());

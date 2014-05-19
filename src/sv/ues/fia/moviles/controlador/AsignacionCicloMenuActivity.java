@@ -8,14 +8,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class CicloMenuActivity extends ListActivity {
+public class AsignacionCicloMenuActivity extends ListActivity {
 	
 	String[] menu = { "Insertar Registro", "Consultar Registro",
 			"Actualizar Registro", "Eliminar Registro" };
-	String[] activities = { "CicloInsertarActivity",
-			"CicloConsultarActivity", "CicloActualizarActivity",
-			"CicloEliminarActivity" };
-
+	String[] activities = { "AsignaCicloInsertarActivity",
+			"AsignaCicloConsultarActivity", "AsignaCicloActualizarActivity",
+			"AsignaCicloEliminarActivity" };
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class CicloMenuActivity extends ListActivity {
 		String nombreValue = activities[position];
 		l.getChildAt(position).setBackgroundColor(Color.rgb(128, 128, 255));
 		try {
-			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.ciclo."
+			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.asignaciclo."
 					+ nombreValue);
 			Intent inte = new Intent(this, clase);
 			this.startActivity(inte);

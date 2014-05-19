@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView android:text="@string/idCiclo" />
+
+        <EditText
+            android:id="@+id/editIdCiclo"
+            android:inputType="number"
+            android:maxLength="7" >
+
+            <requestFocus />
+        </EditText>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idAnio" />
+
+        <EditText
+            android:id="@+id/editIdAnio"
+            android:inputType="number" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idNumero" />
+
+        <EditText
+            android:id="@+id/editIdNumero"
+            android:inputType="number" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="@string/opciones" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarCiclo"
+            android:text="@string/actualizar" />
+
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/limpiar" />
+    </TableRow>
+
+
+</TableLayout>

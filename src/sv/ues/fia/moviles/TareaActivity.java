@@ -11,8 +11,13 @@ import android.widget.Toast;
 
 public class TareaActivity extends ListActivity {
 
-	String[] menu = { "Tabla Docente","Tabla Pregunta","Tabla Categoria","Tabla Detalle Categoria", "LLenar Base de Datos" };
-	String[] activities = { "DocenteMenuActivity","PreguntaMenuActivity","CategoriaMenuActivity","DetalleCategoriaMenuActivity"};
+	String[] menu = { "Tabla Docente", "Tabla Ciclo", "Tabla Asignatura",
+			"Tabla Asignacion Ciclo", "Tabla Pregunta", "Tabla Categoria",
+			"Tabla Detalle Categoria", "LLenar Base de Datos" };
+	String[] activities = { "DocenteMenuActivity", "CicloMenuActivity",
+			"AsignaturaMenuActivity", "AsignacionCicloMenuActivity",
+			"PreguntaMenuActivity", "CategoriaMenuActivity",
+			"DetalleCategoriaMenuActivity" };
 
 	ControlBDTarea BDhelper;
 
@@ -43,9 +48,9 @@ public class TareaActivity extends ListActivity {
 			System.out.println("=== LLENADO DE LA BD ===");
 			BDhelper = new ControlBDTarea(this);
 			BDhelper.abrir();
-		  //  String tost = BDhelper.ControlBDTarea();
+			// String tost = BDhelper.ControlBDTarea();
 			BDhelper.cerrar();
-			//Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+			// Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
 		}
 	}
 

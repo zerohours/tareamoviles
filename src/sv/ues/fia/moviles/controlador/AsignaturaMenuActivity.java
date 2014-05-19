@@ -1,20 +1,22 @@
 package sv.ues.fia.moviles.controlador;
 
+import sv.ues.fia.moviles.R;
+import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class CicloMenuActivity extends ListActivity {
+public class AsignaturaMenuActivity extends ListActivity {
 	
 	String[] menu = { "Insertar Registro", "Consultar Registro",
 			"Actualizar Registro", "Eliminar Registro" };
-	String[] activities = { "CicloInsertarActivity",
-			"CicloConsultarActivity", "CicloActualizarActivity",
-			"CicloEliminarActivity" };
+	String[] activities = { "AsignaturaInsertarActivity",
+			"AsignaturaConsultarActivity", "AsignaturaActualizarActivity",
+			"AsignaturaEliminarActivity" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,13 @@ public class CicloMenuActivity extends ListActivity {
 				android.R.layout.simple_list_item_1, menu);
 		setListAdapter(adapter);
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.asignatura_menu, menu);
+		return true;
+	}
 	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -32,7 +41,7 @@ public class CicloMenuActivity extends ListActivity {
 		String nombreValue = activities[position];
 		l.getChildAt(position).setBackgroundColor(Color.rgb(128, 128, 255));
 		try {
-			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.ciclo."
+			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.asignatura."
 					+ nombreValue);
 			Intent inte = new Intent(this, clase);
 			this.startActivity(inte);
