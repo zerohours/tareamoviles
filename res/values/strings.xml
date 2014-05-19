@@ -49,6 +49,7 @@
     <string name="idCodigo">Código</string>
     <string name="idDescripcion">Descripción</string>
     <string name="idEstadoA">Estado</string>
+    <string name="idAsignaCiclo">Id</string>
     <string name="title_activity_docente_consultar">DocenteConsultarActivity</string>
     <string name="title_activity_docente_actualizar">DocenteActualizarActivity</string>
     <string name="title_activity_docente_eliminar">DocenteEliminarActivity</string>
@@ -63,5 +64,7 @@
     <string name="title_activity_asignatura_consultar">AsignaturaConsultarActivity</string>
     <string name="title_activity_asignatura_actualizar">AsignaturaActualizarActivity</string>
     <string name="title_activity_asignatura_eliminar">AsignaturaEliminarActivity</string>
+    <string name="title_activity_asignacion_ciclo_menu">AsignacionCicloMenuActivity</string>
+    <string name="title_activity_asigna_ciclo_insertar">AsignaCicloInsertarActivity</string>
 
 </resources>

@@ -89,8 +89,10 @@
         <activity
             android:name="sv.ues.fia.moviles.controlador.DetalleCategoriaMenuActivity"
             android:label="@string/title_activity_detalle_categoria_menu" >
+        </activity>
+        <activity
             android:name="sv.ues.fia.moviles.controlador.docente.DocenteConsultarActivity"
-            android:label="@string/title_activity_docente_consultar" >
+            android:label="@string/title_activity_docente_consultar" >
         </activity>
         <activity
             android:name="sv.ues.fia.moviles.controlador.docente.DocenteActualizarActivity"
@@ -139,6 +141,14 @@
         <activity
             android:name="sv.ues.fia.moviles.controlador.asignatura.AsignaturaEliminarActivity"
             android:label="@string/title_activity_asignatura_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.AsignacionCicloMenuActivity"
+            android:label="@string/title_activity_asignacion_ciclo_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloInsertarActivity"
+            android:label="@string/title_activity_asigna_ciclo_insertar" >
         </activity>
     </application>
 

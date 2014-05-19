@@ -1,5 +1,6 @@
 package sv.ues.fia.moviles.db;
 
+import sv.ues.fia.moviles.modelo.AsignaCiclo;
 import sv.ues.fia.moviles.modelo.Asignatura;
 import sv.ues.fia.moviles.modelo.Categoria;
 import sv.ues.fia.moviles.modelo.Ciclo;
@@ -55,6 +56,7 @@ public class ControlBDTarea {
 				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
 				db.execSQL("CREATE TABLE ciclo (id_ciclo integer not null, anio integer not null, numero integer not null, primary key (id_ciclo));");
 				db.execSQL("CREATE TABLE asignatura (id_asignatura integer not null, nombre varchar(50) not null, codigo varchar(8) not null, descripcion varchar(255) not null, estado integer not null, primary key (id_asignatura));");
+				db.execSQL(" CREATE TABLE asigna_ciclo (id integer not null, id_asignatura integer not null, id_docente integer not null, id_ciclo integer not null, primary key (id));");
 				db.execSQL("CREATE TABLE pregunta(id INTEGER PRIMARY KEY ,pregunta VARCHAR(255) NOT NULL);");
 				db.execSQL("CREATE TABLE categoria(id INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
 				db.execSQL("CREATE TABLE detalle_categoria(id_pregunta INTEGER NOT NULL PRIMARY KEY,id_categoria INTEGER NOT NULL PRIMARY KEY);");
@@ -313,6 +315,25 @@ public class ControlBDTarea {
 		} else {
 			return null;
 		}
+	}
+	
+	public String insertar(AsignaCiclo asignaciclo) {
+		String regInsertados = "Registro Insertado Nº= ";
+		long contador = 0;
+		ContentValues asigcicl = new ContentValues();
+
+		asigcicl.put("id", asignaciclo.getId());
+		asigcicl.put("id_asignatura", asignaciclo.getIdAsignatura());
+		asigcicl.put("id_docente", asignaciclo.getIdDocente());
+		asigcicl.put("id_ciclo", asignaciclo.getIdCiclo());
+
+		contador = db.insert("asigna_ciclo", null, asigcicl);
+		if (contador == -1 || contador == 0) {
+			regInsertados = "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+		} else {
+			regInsertados = regInsertados + contador;
+		}
+		return regInsertados;
 	}
 
 	/** Insertar **/

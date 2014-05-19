@@ -11,10 +11,11 @@ import android.widget.Toast;
 
 public class TareaActivity extends ListActivity {
 
-	String[] menu = { "Tabla Docente", "Tabla Ciclo", "Tabla Asignatura", "Tabla Pregunta",
-			"Tabla Categoria", "Tabla Detalle Categoria",
-			"LLenar Base de Datos" };
-	String[] activities = { "DocenteMenuActivity", "CicloMenuActivity", "AsignaturaMenuActivity",
+	String[] menu = { "Tabla Docente", "Tabla Ciclo", "Tabla Asignatura",
+			"Tabla Asignacion Ciclo", "Tabla Pregunta", "Tabla Categoria",
+			"Tabla Detalle Categoria", "LLenar Base de Datos" };
+	String[] activities = { "DocenteMenuActivity", "CicloMenuActivity",
+			"AsignaturaMenuActivity", "AsignacionCicloMenuActivity",
 			"PreguntaMenuActivity", "CategoriaMenuActivity",
 			"DetalleCategoriaMenuActivity" };
 
