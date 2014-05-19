@@ -30,7 +30,7 @@
     <string name="consultar">Consultar</string>
 	<string name="idPregunta">Id Pregunta</string>
 	<string name="pregunta">Pregunta</string>
-	<string name="id_categoria">Id Categoria</string>
+	<string name="idCategoria">Id Categoria</string>
 	<string name="nombre">Nombre</string>
 	<string name="descripcion">Descripcion</string>
     <string name="idEmail">Email</string>

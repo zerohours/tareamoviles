@@ -124,11 +124,13 @@ public class ControlBDTarea {
 			regAfectados = "0";
 			// aplica para cascada
 			// borrar registros de cliente_vehiculo
-			// contador += db.delete("cliente_vehiculo", "id_cliente='"+cliente.getIdCliente()+"'",
+			// contador += db.delete("cliente_vehiculo",
+			// "id_cliente='"+cliente.getIdCliente()+"'",
 			// null); ¨
 		} else {
 			// borrar los registros de cliente
-			contador += db.delete("docente", "id_docente='" + docente.getId() + "'", null);
+			contador += db.delete("docente", "id_docente='" + docente.getId()
+					+ "'", null);
 			regAfectados += contador;
 		}
 		return regAfectados;
@@ -155,6 +157,8 @@ public class ControlBDTarea {
 			return null;
 		}
 	}
+	
+	
 
 	/** Insertar **/
 	public String insertar(Pregunta pregunta) {
@@ -176,7 +180,22 @@ public class ControlBDTarea {
 	}
 
 	public String insertar(Categoria categoria) {
-		return null;
+		String regInsertados = "Registro Insertado Nº= ";
+		long contador = 0;
+		ContentValues catego = new ContentValues();
+
+		catego.put("id", categoria.getId());
+		catego.put("nombre", categoria.getNombre());
+		catego.put("descripcion", categoria.getDescripcion());
+
+		contador = db.insert("categoria", null, catego);
+
+		if (contador == -1 || contador == 0) {
+			regInsertados = "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+		} else {
+			regInsertados = regInsertados + contador;
+		}
+		return regInsertados;
 	}
 
 	public String insertar(DetalleCategoria detallecategoria) {
@@ -186,21 +205,32 @@ public class ControlBDTarea {
 	/** Eliminar **/
 
 	public String eliminar(Pregunta pregunta) {
-		String regAfectados="filas afectadas= ";
-		int contador=0;
-		if (verificarIntegridad(pregunta,99)) {
-		
-		//aplica para cascada borrar registros de notas
-		
-		contador+=db.delete("pregunta",	"id='"+pregunta.getId()+"'", null);
-		
-		regAfectados+=contador;
+		String regAfectados = "filas afectadas= ";
+		int contador = 0;
+		if (verificarIntegridad(pregunta, 99)) {
+
+			// aplica para cascada borrar registros de notas
+
+			contador += db.delete("pregunta", "id='" + pregunta.getId() + "'",
+					null);
+
+			regAfectados += contador;
 		}
 		return regAfectados;
 	}
 
 	public String eliminar(Categoria categoria) {
-		return null;
+		String regAfectados = "filas afectadas= ";
+		int contador = 0;
+		if (verificarIntegridad(categoria, 1000)) {
+			// aplica para cascada borrar registros de notas
+
+			contador += db.delete("categoria", "id='" + categoria.getId() + "'",
+					null);
+
+			regAfectados += contador;
+		}
+		return regAfectados;
 	}
 
 	public String eliminar(DetalleCategoria detallecategoria) {
@@ -227,7 +257,19 @@ public class ControlBDTarea {
 	}
 
 	public String actualizar(Categoria categoria) {
-		return null;
+		if (verificarIntegridad(categoria, 1001)) {
+
+			String[] id = { String.valueOf(categoria.getId()) };
+
+			ContentValues cv = new ContentValues();
+			cv.put("nombre", categoria.getNombre());
+			cv.put("descripcion", categoria.getDescripcion());
+
+			db.update("categoria", cv, "id = ?", id);
+			return "Registro Actualizado Correctamente";
+		} else {
+			return "Registro con ID " + categoria.getId() + " no existe";
+		}
 
 	}
 
@@ -237,9 +279,24 @@ public class ControlBDTarea {
 	}
 
 	/** Consultar **/
-	public Categoria consultarCategoria(int id, String nombre) {// verifcar
-																// parametros
-		return null;
+	public Categoria consultarCategoria(String ids) {// verifcar
+		String[] id = { ids };
+		Cursor cursor = db.query("categoria", camposCategoria, "id = ?", id,
+				null, null, null);
+
+		if (cursor.moveToFirst()) {
+
+			Categoria cat=new Categoria();
+			
+			cat.setNombre(""+cursor.getInt(1));
+			cat.setDescripcion(cursor.getString(2));
+
+
+
+			return cat;
+		} else {
+			return null;
+		}
 	}
 
 	public Pregunta consultarPregunta(String ids) {// verificar parametros
@@ -259,28 +316,25 @@ public class ControlBDTarea {
 		}
 	}
 
-	
-	
-	
-	//***verificar integridad***//
+	// ***verificar integridad***//
 	private boolean verificarIntegridad(Object dato, int relacion)
 			throws SQLException {
 		switch (relacion) {
-		
+
 		case 3: {
 			// verifica que no existan registros hijos de docente
-//			Docente docente2 = (Docente) dato;
+			// Docente docente2 = (Docente) dato;
 			return false;
-//			Cursor c = db.query(true, "cliente_vehiculo",
-//					new String[] { "id_docente" },
-//					"id_docente='" + docente2.getId() + "'", null, null,
-//					null, null, null);
-//			if (c.moveToFirst())
-//				return true;
-//			else
-//				return false;
+			// Cursor c = db.query(true, "cliente_vehiculo",
+			// new String[] { "id_docente" },
+			// "id_docente='" + docente2.getId() + "'", null, null,
+			// null, null, null);
+			// if (c.moveToFirst())
+			// return true;
+			// else
+			// return false;
 		}
-		
+
 		case 5: {
 			// verificar que exista Docente
 			Docente docente2 = (Docente) dato;
@@ -294,23 +348,23 @@ public class ControlBDTarea {
 			}
 			return false;
 		}
-		
+
 		case 99: {
 			// verificar que al insertar nota exista carnet del alumno y el
 			// codigo de materia
 			// Nota nota = (Nota) dato;
-			Pregunta pregunta=(Pregunta) dato;
-			String[] id1 = {String.valueOf(pregunta.getId()) };
-		    abrir();
-			Cursor cursor1 = db.query("pregunta", null, "id = ?", id1,
-			 null, null, null);
-			
+			Pregunta pregunta = (Pregunta) dato;
+			String[] id1 = { String.valueOf(pregunta.getId()) };
+			abrir();
+			Cursor cursor1 = db.query("pregunta", null, "id = ?", id1, null,
+					null, null);
+
 			//
-			 if (cursor1.moveToFirst()) {
-			// // Se encontraron datos
-			 return true;
+			if (cursor1.moveToFirst()) {
+				// // Se encontraron datos
+				return true;
 			}
-			 return false;
+			return false;
 		}
 		default:
 			return false;
@@ -363,20 +417,20 @@ public class ControlBDTarea {
 		cerrar();
 		return "Guardo Correctamente";
 	}
-	
+
 	public int getCount(String tabla, String id) {
-	
-//		String sql = "select ? from ? order by ? desc limit 1 ;"; 
-		
-//		abrir();
-//		Cursor cursor = db.rawQuery(sql, new String[]{id, tabla, id});
-//		cerrar();
-//		if(cursor.moveToFirst()) {
-//			System.out.println("El valor es: " + cursor.getInt(0));
-//			return cursor.getInt(0) + 1;
-//		} else { 
-//			return 1;
-//		}
+
+		// String sql = "select ? from ? order by ? desc limit 1 ;";
+
+		// abrir();
+		// Cursor cursor = db.rawQuery(sql, new String[]{id, tabla, id});
+		// cerrar();
+		// if(cursor.moveToFirst()) {
+		// System.out.println("El valor es: " + cursor.getInt(0));
+		// return cursor.getInt(0) + 1;
+		// } else {
+		// return 1;
+		// }
 		return 1;
 	}
 

@@ -38,14 +38,11 @@ public class PreguntaEliminarActivity extends Activity {
 
 	public void eliminarAlumno(View v){
 		String regEliminadas;
-		
-//		Pregunta pregunta=new Pregunta();
-//		pregunta.setId(String.valueOf(editIdpregunta.getText().toString()));
-//		
-//		alumno.setCarnet(editCarnet.getText().toString());
-//		controlhelper.abrir();
-//		regEliminadas=controlhelper.eliminar(alumno);
-//		controlhelper.cerrar();
-//		Toast.makeText(this, regEliminadas, Toast.LENGTH_SHORT).show();
+		Pregunta preg=new Pregunta();
+		preg.setId(Integer.parseInt(editId.getText().toString()));
+		controlhelper.abrir();
+		regEliminadas=controlhelper.eliminar(preg);
+		controlhelper.cerrar();
+		Toast.makeText(this, regEliminadas, Toast.LENGTH_SHORT).show();
 		}
 }
