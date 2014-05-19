@@ -97,7 +97,6 @@ public class DocenteActualizarActivity extends Activity implements
 		String apell1 = editIdApell1.getText().toString();
 		String apell2 = editIdApell2.getText().toString();
 		String fechNac = editIdFechaNac.getText().toString();
-		System.out.println("acá está.");
 		String telefono = editIdTelefono.getText().toString();
 		int estado = 0;
 		

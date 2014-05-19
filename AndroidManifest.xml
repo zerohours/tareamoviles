@@ -90,7 +90,7 @@
             android:name="sv.ues.fia.moviles.controlador.DetalleCategoriaMenuActivity"
             android:label="@string/title_activity_detalle_categoria_menu" >
             android:name="sv.ues.fia.moviles.controlador.docente.DocenteConsultarActivity"
-            android:label="@string/title_activity_docente_consultar" >
+            android:label="@string/title_activity_docente_consultar" >
         </activity>
         <activity
             android:name="sv.ues.fia.moviles.controlador.docente.DocenteActualizarActivity"
@@ -103,6 +103,42 @@
         <activity
             android:name="sv.ues.fia.moviles.controlador.CicloMenuActivity"
             android:label="@string/title_activity_ciclo_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.ciclo.CicloInsertarActivity"
+            android:label="@string/title_activity_ciclo_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.ciclo.CicloConsultarActivity"
+            android:label="@string/title_activity_ciclo_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.ciclo.CicloActualizarActivity"
+            android:label="@string/title_activity_ciclo_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.ciclo.CicloEliminarActivity"
+            android:label="@string/title_activity_ciclo_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.AsignaturaMenuActivity"
+            android:label="@string/title_activity_asignatura_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignatura.AsignaturaInsertarActivity"
+            android:label="@string/title_activity_asignatura_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignatura.AsignaturaConsultarActivity"
+            android:label="@string/title_activity_asignatura_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignatura.AsignaturaActualizarActivity"
+            android:label="@string/title_activity_asignatura_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignatura.AsignaturaEliminarActivity"
+            android:label="@string/title_activity_asignatura_eliminar" >
         </activity>
     </application>
 
