@@ -63,6 +63,11 @@ public class ControlBDTarea {
 				db.execSQL("CREATE TABLE categoria(id INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
 				db.execSQL("CREATE TABLE detalle_categoria(id_pregunta INTEGER NOT NULL PRIMARY KEY,id_categoria INTEGER NOT NULL PRIMARY KEY);");
 				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
+				
+				// Asignacion de triggers para la tabla asigna_ciclo
+				db.execSQL("CREATE TRIGGER fk_asignaciclo_docente  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW  BEGIN  SELECT CASE  WHEN ((SELECT id_docente FROM docente WHERE id_docente = NEW.id_docente) IS NULL)  THEN RAISE(ABORT, 'No existe el docente.')  END; END;");
+				db.execSQL("CREATE TRIGGER fk_asignaciclo_ciclo  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW   BEGIN	 SELECT CASE  WHEN ((SELECT id_ciclo FROM ciclo WHERE id_ciclo = NEW.id_ciclo) IS NULL)	THEN RAISE(ABORT, 'No existe el ciclo.')  END;  END;");
+				db.execSQL("CREATE TRIGGER fk_asignaciclo_asignatura  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW  BEGIN  SELECT CASE  WHEN ((SELECT id_asignatura FROM asignatura WHERE id_asignatura = NEW.id_asignatura) IS NULL)  THEN RAISE(ABORT, 'No existe la asignatura.')  END;  END;");
 
 			} catch (SQLException e) {
 				e.printStackTrace();
