@@ -24,6 +24,8 @@ public class ControlBDTarea {
 	private static final String[] camposDocente = new String[] { "ID_DOCENTE",
 			"EMAIL", "PASSWORD", "NOMBRE", "APELLIDO1", "APELLIDO2",
 			"FECHA_NAC", "TELEFONO", "ESTADO" };
+	private static final String[] camposAsignaCiclo = new String[] { "id",
+	"id_asignatura", "id_docente", "id_ciclo" };	
 	private static final String[] camposAsignatura = new String[] {
 			"id_asignatura", "nombre", "codigo", "descripcion" };
 	private static final String[] camposCiclo = new String[] { "id_ciclo",
@@ -335,6 +337,62 @@ public class ControlBDTarea {
 		}
 		return regInsertados;
 	}
+	
+	public String actualizar(AsignaCiclo asignaciclo) {
+		if (verificarIntegridad(asignaciclo, 16)) {
+			String[] id = { Integer.toString(asignaciclo.getId()) };
+			ContentValues asig = new ContentValues();
+
+			asig.put("id", asignaciclo.getId());
+			asig.put("id_asignatura", asignaciclo.getIdAsignatura());
+			asig.put("id_docente", asignaciclo.getIdDocente());
+			asig.put("id_ciclo", asignaciclo.getIdCiclo());
+
+			db.update("asigna_ciclo", asig, "id = ?", id);
+			return "Registro Actualizado Correctamente";
+		} else {
+			return "Registro Cliente " + asignaciclo.getId() + " no existe";
+		}
+	}
+	
+	public String eliminar(AsignaCiclo asignaciclo) {
+		String regAfectados = "filas afectadas= ";
+		int contador = 0;
+		if (verificarIntegridad(asignaciclo, 15)) {
+			regAfectados = "0";
+			// aplica para cascada
+			// borrar registros de cliente_vehiculo
+			// contador += db.delete("cliente_vehiculo",
+			// "id_cliente='"+cliente.getIdCliente()+"'",
+			// null); ¨
+		} else {
+			// borrar los registros de cliente
+			contador += db.delete("asigna_ciclo", "id='" + asignaciclo.getId()
+					+ "'", null);
+			regAfectados += contador;
+		}
+		return regAfectados;
+	}
+	
+	public AsignaCiclo consultarAsignaCiclo(String id_asignaciclo) {
+
+		String[] id = { id_asignaciclo };
+		Cursor cursor = db.query("asigna_ciclo", camposAsignaCiclo, "id = ?", id,
+				null, null, null);
+
+		if (cursor.moveToFirst()) {
+			AsignaCiclo asignaciclo = new AsignaCiclo();
+			
+			asignaciclo.setId(cursor.getInt(0));
+			asignaciclo.setIdAsignatura(cursor.getInt(1));
+			asignaciclo.setIdDocente(cursor.getInt(2));
+			asignaciclo.setIdCiclo(cursor.getInt(3));
+
+			return asignaciclo;
+		} else {
+			return null;
+		}
+	}
 
 	/** Insertar **/
 	public String insertar(Pregunta pregunta) {
@@ -503,7 +561,7 @@ public class ControlBDTarea {
 		
 		case 11: {
 			// verifica que no existan registros hijos de Asignatura
-			// Asignatura asignatura2 = (asignatura) dato;
+			// Asignatura asignatura2 = (Asignatura) dato;
 			return false;
 			// Cursor c = db.query(true, "cliente_vehiculo",
 			// new String[] { "id_docente" },
@@ -521,6 +579,34 @@ public class ControlBDTarea {
 			String[] id = { Integer.toString(asignatura2.getId()) };
 			abrir();
 			Cursor c2 = db.query("asignatura", null, "id_asignatura = ?", id, null, null,
+					null);
+			if (c2.moveToFirst()) {
+				// Se encontro Ciclo
+				return true;
+			}
+			return false;
+		}
+		
+		case 15: {
+			// verifica que no existan registros hijos de Asignatura
+			// AsignaCiclo asignatura2 = (AsignaCiclo) dato;
+			return false;
+			// Cursor c = db.query(true, "cliente_vehiculo",
+			// new String[] { "id_docente" },
+			// "id_docente='" + docente2.getId() + "'", null, null,
+			// null, null, null);
+			// if (c.moveToFirst())
+			// return true;
+			// else
+			// return false;	
+		}
+		
+		case 16: {
+			// verificar que exista Asignatura
+			AsignaCiclo asignaciclo2 = (AsignaCiclo) dato;
+			String[] id = { Integer.toString(asignaciclo2.getId()) };
+			abrir();
+			Cursor c2 = db.query("asigna_ciclo", null, "id = ?", id, null, null,
 					null);
 			if (c2.moveToFirst()) {
 				// Se encontro Ciclo
