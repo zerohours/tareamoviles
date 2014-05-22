@@ -9,17 +9,17 @@
         android:layout_height="wrap_content"
         android:text="@string/idPregunta" />
 
-    <EditText
-        android:id="@+id/editIdpregunta"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLength="7" />
+ <Spinner
+        android:id="@+id/spinnerEliminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="eliminarAlumno"
+        android:onClick="eliminarPregunta"
         android:text="@string/eliminar" />
+
+    
 
 </LinearLayout>

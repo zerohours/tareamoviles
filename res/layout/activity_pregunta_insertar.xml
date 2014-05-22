@@ -2,6 +2,7 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:paddingTop="30dip"
     android:stretchColumns="1" >
 
@@ -11,8 +12,18 @@
 
         <EditText
             android:id="@+id/editIdpregunta"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLength="7" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idCategoria" />
+
+        <Spinner
+            android:id="@+id/spinnerCategora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow>
@@ -21,8 +32,13 @@
 
         <EditText
             android:id="@+id/editPregunta"
+            android:ems="10"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="30" >
+
+            <requestFocus />
+        </EditText>
+
     </TableRow>
 
     <TableRow>
@@ -33,7 +49,7 @@
     <TableRow>
 
         <Button
-            android:onClick="insertarAlumno"
+            android:onClick="insertarPregunta"
             android:text="@string/insertar" />
 
         <Button

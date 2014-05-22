@@ -1,5 +1,7 @@
 package sv.ues.fia.moviles.db;
 
+import java.util.ArrayList;
+
 import sv.ues.fia.moviles.modelo.AsignaCiclo;
 import sv.ues.fia.moviles.modelo.Asignatura;
 import sv.ues.fia.moviles.modelo.Categoria;
@@ -13,14 +15,16 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class ControlBDTarea {
 
-	private static final String[] camposCategoria = new String[] { "nombre",
-			"descripcion" };
-	private static final String[] camposPregunta = new String[] { "pregunta" };
-	private static final String[] camposDetalleCategoria = new String[] {
-			"idpregunta", "idcategoria" };
+	private static final String[] camposCategoria = new String[] { "id_cat",
+			"nombre", "descripcion" };
+	private static final String[] camposPregunta = new String[] { "id_preg",
+			"pregunta" };
+	private static final String[] camposDetalleCategoria = new String[] {"id_serial","idpregunta", "idcategoria" };
+	
 	private static final String[] camposDocente = new String[] { "ID_DOCENTE",
 			"EMAIL", "PASSWORD", "NOMBRE", "APELLIDO1", "APELLIDO2",
 			"FECHA_NAC", "TELEFONO", "ESTADO" };
@@ -57,9 +61,9 @@ public class ControlBDTarea {
 				db.execSQL("CREATE TABLE ciclo (id_ciclo integer not null, anio integer not null, numero integer not null, primary key (id_ciclo));");
 				db.execSQL("CREATE TABLE asignatura (id_asignatura integer not null, nombre varchar(50) not null, codigo varchar(8) not null, descripcion varchar(255) not null, estado integer not null, primary key (id_asignatura));");
 				db.execSQL(" CREATE TABLE asigna_ciclo (id integer not null, id_asignatura integer not null, id_docente integer not null, id_ciclo integer not null, primary key (id));");
-				db.execSQL("CREATE TABLE pregunta(id INTEGER PRIMARY KEY ,pregunta VARCHAR(255) NOT NULL);");
-				db.execSQL("CREATE TABLE categoria(id INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
-				db.execSQL("CREATE TABLE detalle_categoria(id_pregunta INTEGER NOT NULL PRIMARY KEY,id_categoria INTEGER NOT NULL PRIMARY KEY);");
+				db.execSQL("CREATE TABLE pregunta(id_preg integer not null,pregunta varchar(255) NOT NULL, primary key(id_preg));");
+				db.execSQL("CREATE TABLE categoria(id_cat INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
+				db.execSQL("CREATE TABLE detcat( [id_serial] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, id_pregunta integer not null,id_categoria integer not null);");
 				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
 
 			} catch (SQLException e) {
@@ -260,7 +264,7 @@ public class ControlBDTarea {
 		}
 		return regInsertados;
 	}
-	
+
 	public String actualizar(Asignatura asignatura) {
 		if (verificarIntegridad(asignatura, 12)) {
 			String[] id = { Integer.toString(asignatura.getId()) };
@@ -277,7 +281,7 @@ public class ControlBDTarea {
 			return "Registro Asignatura " + asignatura.getId() + " no existe";
 		}
 	}
-	
+
 	public String eliminar(Asignatura asignatura) {
 		String regAfectados = "filas afectadas= ";
 		int contador = 0;
@@ -290,8 +294,8 @@ public class ControlBDTarea {
 			// null); ¨
 		} else {
 			// borrar los registros de cliente
-			contador += db.delete("asignatura", "id_asignatura='" + asignatura.getId()
-					+ "'", null);
+			contador += db.delete("asignatura",
+					"id_asignatura='" + asignatura.getId() + "'", null);
 			regAfectados += contador;
 		}
 		return regAfectados;
@@ -316,7 +320,7 @@ public class ControlBDTarea {
 			return null;
 		}
 	}
-	
+
 	public String insertar(AsignaCiclo asignaciclo) {
 		String regInsertados = "Registro Insertado Nº= ";
 		long contador = 0;
@@ -342,7 +346,7 @@ public class ControlBDTarea {
 		long contador = 0;
 		ContentValues preg = new ContentValues();
 
-		preg.put("id", pregunta.getId());
+		preg.put("id_preg", pregunta.getId_preg());
 		preg.put("pregunta", pregunta.getPregunta());
 
 		contador = db.insert("pregunta", null, preg);
@@ -360,7 +364,7 @@ public class ControlBDTarea {
 		long contador = 0;
 		ContentValues catego = new ContentValues();
 
-		catego.put("id", categoria.getId());
+		catego.put("id_cat", categoria.getId_cat());
 		catego.put("nombre", categoria.getNombre());
 		catego.put("descripcion", categoria.getDescripcion());
 
@@ -375,7 +379,31 @@ public class ControlBDTarea {
 	}
 
 	public String insertar(DetalleCategoria detallecategoria) {
-		return null;
+		String regInsertados = "Registro Insertado Nº= ";
+		long contador = 0;
+		Cursor reg;
+		reg=db.rawQuery(" select  id_serial from detcat order by id_serial desc limit 1", null);
+		reg.getCount();
+		int prue = 0;
+		 if(reg.moveToFirst()) {
+			 System.out.println("El valor es: " + reg.getInt(0));
+			 prue=reg.getInt(0)+1;
+		 }
+		ContentValues catedeta = new ContentValues();
+        
+		catedeta.put("id_serial",prue);
+		catedeta.put("id_pregunta", detallecategoria.getId_pregunta());
+		catedeta.put("id_categoria", detallecategoria.getId_categoria());
+		
+		
+		contador = db.insert("detcat", null, catedeta);
+
+		if (contador == -1 || contador == 0) {
+			regInsertados = "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+		} else {
+			regInsertados = regInsertados + contador;
+		}
+		return regInsertados;
 	}
 
 	/** Eliminar **/
@@ -385,12 +413,12 @@ public class ControlBDTarea {
 		int contador = 0;
 		if (verificarIntegridad(pregunta, 99)) {
 
-			// aplica para cascada borrar registros de notas
-
-			contador += db.delete("pregunta", "id='" + pregunta.getId() + "'",
-					null);
+			contador += db.delete("pregunta",
+					"id_preg='" + pregunta.getId_preg() + "'", null);
 
 			regAfectados += contador;
+		} else {
+			regAfectados = "0";
 		}
 		return regAfectados;
 	}
@@ -399,12 +427,13 @@ public class ControlBDTarea {
 		String regAfectados = "filas afectadas= ";
 		int contador = 0;
 		if (verificarIntegridad(categoria, 1000)) {
-			// aplica para cascada borrar registros de notas
 
-			contador += db.delete("categoria", "id='" + categoria.getId() + "'",
-					null);
+			contador += db.delete("categoria",
+					"id_cat='" + categoria.getId_cat() + "'", null);
 
 			regAfectados += contador;
+		} else {
+			regAfectados = "0";
 		}
 		return regAfectados;
 	}
@@ -419,55 +448,69 @@ public class ControlBDTarea {
 
 		if (verificarIntegridad(pregunta, 99)) {
 
-			String[] id = { String.valueOf(pregunta.getId()) };
+			String[] id = { String.valueOf(pregunta.getId_preg()) };
 
 			ContentValues cv = new ContentValues();
+			cv.put("id_preg", pregunta.getId_preg());
 			cv.put("pregunta", pregunta.getPregunta());
 
-			db.update("pregunta", cv, "id = ?", id);
+			db.update("pregunta", cv, "id_preg = ?", id);
 			return "Registro Actualizado Correctamente";
 		} else {
-			return "Registro con ID " + pregunta.getId() + " no existe";
+			return "Registro con ID " + pregunta.getId_preg() + " no existe";
 		}
 
 	}
 
 	public String actualizar(Categoria categoria) {
-		if (verificarIntegridad(categoria, 1001)) {
+		if (verificarIntegridad(categoria, 1000)) {
 
-			String[] id = { String.valueOf(categoria.getId()) };
+			String[] id = { String.valueOf(categoria.getId_cat()) };
 
 			ContentValues cv = new ContentValues();
+			cv.put("id_cat", categoria.getId_cat());
 			cv.put("nombre", categoria.getNombre());
 			cv.put("descripcion", categoria.getDescripcion());
 
-			db.update("categoria", cv, "id = ?", id);
+			db.update("categoria", cv, "id_cat = ?", id);
 			return "Registro Actualizado Correctamente";
 		} else {
-			return "Registro con ID " + categoria.getId() + " no existe";
+			return "Registro con ID " + categoria.getId_cat() + " no existe";
 		}
 
 	}
 
+	/*
+	 * public String actualizar(Asignatura asignatura) { if
+	 * (verificarIntegridad(asignatura, 12)) { String[] id = {
+	 * Integer.toString(asignatura.getId()) }; ContentValues asig = new
+	 * ContentValues();
+	 * 
+	 * asig.put("id_asignatura", asignatura.getId()); asig.put("nombre",
+	 * asignatura.getNombre()); asig.put("codigo", asignatura.getCodigo());
+	 * asig.put("descripcion", asignatura.getDescripcion());
+	 * 
+	 * db.update("asignatura", asig, "id_asignatura = ?", id); return
+	 * "Registro Actualizado Correctamente"; } else { return
+	 * "Registro Asignatura " + asignatura.getId() + " no existe"; } }
+	 */
 	public String actualizar(DetalleCategoria detallecategoria) {
 		return null;
 
 	}
 
 	/** Consultar **/
-	public Categoria consultarCategoria(String ids) {// verifcar
-		String[] id = { ids };
-		Cursor cursor = db.query("categoria", camposCategoria, "id = ?", id,
-				null, null, null);
+	public Categoria consultarCategoria(String id_cat) {// verifcar
+		String[] id = { id_cat };
+		Cursor cursor = db.query("categoria", camposCategoria, "id_cat = ?",
+				id, null, null, null);
 
 		if (cursor.moveToFirst()) {
 
-			Categoria cat=new Categoria();
-			
-			cat.setNombre(""+cursor.getInt(1));
+			Categoria cat = new Categoria();
+			cat.setId_cat(cursor.getInt(0));
+			cat.setNombre(cursor.getString(1));
 			cat.setDescripcion(cursor.getString(2));
-
-
 
 			return cat;
 		} else {
@@ -475,15 +518,54 @@ public class ControlBDTarea {
 		}
 	}
 
-	public Pregunta consultarPregunta(String ids) {// verificar parametros
-		String[] id = { ids };
-		Cursor cursor = db.query("pregunta", camposPregunta, "id = ?", id,
+	public void consultarCategoriaAll(ArrayList<Categoria> categoria) {// verifcar
+		abrir();
+		Cursor cursor = db.rawQuery("select * from categoria", null);
+		if (cursor != null && cursor.getCount() > 0) {
+			// Categoria cat;
+			while (cursor.moveToNext()) {
+				// cat=new Categoria();
+				Categoria cat = new Categoria();
+				cat.setId_cat(cursor.getInt(0));
+				cat.setNombre(cursor.getString(1));
+				cat.setDescripcion(cursor.getString(2));
+				categoria.add(cat);
+			}
+		} else {
+			CharSequence text = "Categoria Vacia!";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+	}
+
+	public void consultarPreguntaAll(ArrayList<Pregunta> pregunta) {// verifcar
+		abrir();
+		Cursor cursor = db.rawQuery("select * from pregunta", null);
+		if (cursor != null && cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				Pregunta preg = new Pregunta();
+				preg.setId_preg(cursor.getInt(0));
+				preg.setPregunta(cursor.getString(1));
+				pregunta.add(preg);
+			}
+		} else {
+			CharSequence text = "Pregunta Vacia!";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+	}
+
+	public Pregunta consultarPregunta(String id_preg) {// verificar parametros
+		String[] id = { id_preg };
+		Cursor cursor = db.query("pregunta", camposPregunta, "id_preg = ?", id,
 				null, null, null);
 
 		if (cursor.moveToFirst()) {
 
 			Pregunta pregunta = new Pregunta();
-			pregunta.setId(cursor.getInt(0));
+			pregunta.setId_preg(cursor.getInt(0));
 			pregunta.setPregunta(cursor.getString(1));
 
 			return pregunta;
@@ -552,7 +634,7 @@ public class ControlBDTarea {
 			}
 			return false;
 		}
-		
+
 		case 11: {
 			// verifica que no existan registros hijos de Asignatura
 			// Asignatura asignatura2 = (asignatura) dato;
@@ -564,16 +646,16 @@ public class ControlBDTarea {
 			// if (c.moveToFirst())
 			// return true;
 			// else
-			// return false;	
+			// return false;
 		}
-		
+
 		case 12: {
 			// verificar que exista Asignatura
 			Asignatura asignatura2 = (Asignatura) dato;
 			String[] id = { Integer.toString(asignatura2.getId()) };
 			abrir();
-			Cursor c2 = db.query("asignatura", null, "id_asignatura = ?", id, null, null,
-					null);
+			Cursor c2 = db.query("asignatura", null, "id_asignatura = ?", id,
+					null, null, null);
 			if (c2.moveToFirst()) {
 				// Se encontro Ciclo
 				return true;
@@ -582,29 +664,43 @@ public class ControlBDTarea {
 		}
 
 		case 99: {
-			// verificar que al insertar nota exista carnet del alumno y el
-			// codigo de materia
-			// Nota nota = (Nota) dato;
+
 			Pregunta pregunta = (Pregunta) dato;
-			String[] id1 = { String.valueOf(pregunta.getId()) };
+			String[] id1 = { String.valueOf(pregunta.getId_preg()) };
 			abrir();
-			Cursor cursor1 = db.query("pregunta", null, "id = ?", id1, null,
-					null, null);
+			Cursor cursor1 = db.query("pregunta", null, "id_preg = ?", id1,
+					null, null, null);
 
 			//
 			if (cursor1.moveToFirst()) {
+				return true;
+			} else {
+				return false;
+			}
+
+		}
+
+		case 1000: {
+			Categoria categoria = (Categoria) dato;
+			String[] idcat = { String.valueOf(categoria.getId_cat()) };
+			abrir();
+			Cursor cursor = db.query("categoria", null, "id_cat = ?", idcat,
+					null, null, null);
+			if (cursor.moveToFirst()) {
 				// // Se encontraron datos
 				return true;
+			} else {
+				return false;
 			}
-			return false;
 		}
+
 		default:
 			return false;
 		}
 
 	}
 
-	public String llenarBDCarnet() {
+	public String llenarBD() {
 
 		final int[] VCid = { 1, 2, 3, 4 };
 		final String[] VCnombre = { "MATEMATICA", "SOCIALES", "LENGUAJE",
@@ -612,7 +708,7 @@ public class ControlBDTarea {
 		final String[] VCdescripcion = { "NUMEROS", "MAPAS XXX", "LETRAS",
 				"IDOMA INGLES" };
 
-		final String[] VPid = { "11", "22", "33", "44" };
+		final int[] VPid = { 11, 22, 33, 44 };
 		final String[] VPpregunta = {
 				"¿Podrían sumarse los infinítos números que hay entre el 0 y el 1?",
 				"¿como se llaman las principales áreas culturales del continente americano? ",
@@ -624,16 +720,17 @@ public class ControlBDTarea {
 		abrir();
 		db.execSQL("DELETE FROM categoria");
 		db.execSQL("DELETE FROM pregunta");
-		db.execSQL("DELETE FROM detalle_categoria");
+	  //  db.execSQL("DELETE FROM detallecategoria");
 
 		Pregunta pregunta = new Pregunta();
 		for (int i = 0; i < 4; i++) {
+			pregunta.setId_preg(VPid[i]);
 			pregunta.setPregunta(VPpregunta[i]);
 			insertar(pregunta);
 		}
 		Categoria categoria = new Categoria();
 		for (int i = 0; i < 4; i++) {
-			categoria.setId(VCid[i]);
+			categoria.setId_cat(VCid[i]);
 			categoria.setNombre(VCnombre[i]);
 			categoria.setDescripcion(VCdescripcion[i]);
 			insertar(categoria);
@@ -641,6 +738,8 @@ public class ControlBDTarea {
 		}
 		DetalleCategoria detcat = new DetalleCategoria();
 		for (int i = 0; i < 4; i++) {
+			
+		
 			detcat.setId_categoria(VDCidcategoria[i]);
 			detcat.setId_pregunta(VDCidpregunta[i]);
 			insertar(detcat);

@@ -9,13 +9,11 @@
         android:layout_height="wrap_content"
         android:text="@string/idPregunta" />
 
-    <EditText
-        android:id="@+id/editCarnet"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLength="7" />
-
+     <Spinner
+        android:id="@+id/spinnerPregunta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
@@ -25,7 +23,7 @@
             android:id="@+id/botonConsultar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="consultarAlumno"
+            android:onClick="consultarPregunta"
             android:text="@string/consultar" />
 
         <Button
@@ -39,17 +37,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pregunta" />
+        android:text="@string/idPregunta" />
 
     <EditText
-        android:id="@+id/editNombre"
+        android:id="@+id/editPregunta"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:cursorVisible="false"
         android:enabled="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:longClickable="false" />
 
    

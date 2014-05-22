@@ -9,29 +9,29 @@
 
         <TextView android:text="@string/idPregunta" />
 
-        <EditText
-            android:id="@+id/editIdpregunta"
-            android:inputType="text"
-            android:maxLength="7" />
+        <Spinner
+            android:id="@+id/spinnerActualizar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow>
 
         <TextView android:text="@string/pregunta" />
-
-        <EditText
-            android:id="@+id/editPregunta"
-            android:inputType="text"
-            android:maxLength="30" />
     </TableRow>
 
-   
+    <EditText
+        android:id="@+id/editPregunta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:maxLength="30" />
+
     <TableRow>
 
         <Button
-            android:onClick="actualizarAlumno"
+            android:onClick="actualizarPregunta"
             android:text="@string/actualizar" />
-   
 
         <Button
             android:onClick="limpiarTexto"

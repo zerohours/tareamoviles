@@ -1,6 +1,7 @@
 package sv.ues.fia.moviles;
 
 import sv.ues.fia.moviles.db.ControlBDTarea;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,12 +27,14 @@ public class TareaActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menu));
+		BDhelper=new ControlBDTarea(this);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		if (position != 4) {
+		
+		if (position != 7) {
 			String nombreValue = activities[position];
 			try {
 				Class<?> clase = Class
@@ -46,11 +49,11 @@ public class TareaActivity extends ListActivity {
 		} else {
 			// CODIGO PARA LLENAR BASE DE DATOS
 			System.out.println("=== LLENADO DE LA BD ===");
-			BDhelper = new ControlBDTarea(this);
+			//BDhelper = new ControlBDTarea(this);
 			BDhelper.abrir();
-			// String tost = BDhelper.ControlBDTarea();
+			 String tost = BDhelper.llenarBD();
 			BDhelper.cerrar();
-			// Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+			 Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
 		}
 	}
 

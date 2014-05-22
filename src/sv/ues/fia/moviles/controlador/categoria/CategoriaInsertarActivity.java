@@ -6,6 +6,7 @@ import sv.ues.fia.moviles.modelo.Categoria;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 
 import android.widget.EditText;
@@ -28,6 +29,13 @@ public class CategoriaInsertarActivity extends Activity {
 		descripcion = (EditText) findViewById(R.id.editDescripcion);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.categoria_insertar, menu);
+		return true;
+	}
+
 	public void insertarCategoria(View v) {
 		int id = Integer.parseInt(id_categoria.getText().toString());
 		String nom = nombre.getText().toString();
@@ -35,7 +43,7 @@ public class CategoriaInsertarActivity extends Activity {
 		String regInsertados;
 
 		Categoria cat = new Categoria();
-		cat.setId(id);
+		cat.setId_cat(id);
 		cat.setNombre(nom);
 		cat.setDescripcion(des);
 

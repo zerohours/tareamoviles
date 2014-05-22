@@ -11,7 +11,7 @@
 
         <EditText
             android:id="@+id/editIdcategoria"
-            android:inputType="text"
+            android:inputType="number"
             android:maxLength="7" />
     </TableRow>
 
@@ -48,7 +48,7 @@
     <TableRow>
 
         <Button
-            android:onClick="insertarAlumno"
+            android:onClick="insertarCategoria"
             android:text="@string/insertar" />
 
         <Button

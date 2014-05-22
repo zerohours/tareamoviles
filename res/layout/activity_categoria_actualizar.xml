@@ -8,12 +8,12 @@
     <TableRow>
 
         <TextView android:text="@string/idCategoria" />
-
-        <EditText
-            android:id="@+id/editIdcategoria"
-            android:inputType="text"
-            android:maxLength="7" />
     </TableRow>
+
+    <Spinner
+        android:id="@+id/spinnerCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <TableRow>
 
@@ -25,7 +25,7 @@
             android:maxLength="30" />
     </TableRow>
 
-   <TableRow>
+    <TableRow>
 
         <TextView android:text="@string/descripcion" />
 
@@ -34,15 +34,12 @@
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
-    
-    
-    
+
     <TableRow>
 
         <Button
-            android:onClick="actualizarAlumno"
+            android:onClick="actualizarCategoria"
             android:text="@string/actualizar" />
-   
 
         <Button
             android:onClick="limpiarTexto"

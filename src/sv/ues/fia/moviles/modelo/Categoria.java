@@ -1,26 +1,26 @@
 package sv.ues.fia.moviles.modelo;
 
 public class Categoria {
-	private int id;
+	private int id_cat;
 	private String nombre;
 	private String descripcion;
 
-	public Categoria() {
+//	public Categoria() {
+//
+//	}
+//
+//	public Categoria(int id_cat, String nombre, String descripcion) {
+//		this.id_cat = id_cat;
+//		this.nombre = nombre;
+//		this.descripcion = descripcion;
+//	}
 
+	public int getId_cat() {
+		return id_cat;
 	}
 
-	public Categoria(int id, String nombre, String descripcion) {
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setId_cat(int id_cat) {
+		this.id_cat = id_cat;
 	}
 
 	public String getNombre() {
@@ -39,4 +39,8 @@ public class Categoria {
 		this.descripcion = descripcion;
 	}
 
+	public String toString(){
+		return ""+id_cat;
+		
+	}
 }
