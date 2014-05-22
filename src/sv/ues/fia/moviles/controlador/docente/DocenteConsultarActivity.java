@@ -60,7 +60,7 @@ public class DocenteConsultarActivity extends Activity {
 			editIdEmail.setText(docente.getEmail());
 			editIdNombreDoc.setText(docente.getNombre());
 			editIdApell1.setText(docente.getApellido1());
-			editIdApell2.setText(docente.getApellido1());
+			editIdApell2.setText(docente.getApellido2());
 			editIdTelefono.setText(docente.getTelefono());
 		}
 	}

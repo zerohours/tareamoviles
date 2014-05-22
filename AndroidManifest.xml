@@ -150,6 +150,18 @@
             android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloInsertarActivity"
             android:label="@string/title_activity_asigna_ciclo_insertar" >
         </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloConsultarActivity"
+            android:label="@string/title_activity_asigna_ciclo_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloActualizarActivity"
+            android:label="@string/title_activity_asigna_ciclo_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloEliminarActivity"
+            android:label="@string/title_activity_asigna_ciclo_eliminar" >
+        </activity>
     </application>
 
 </manifest>

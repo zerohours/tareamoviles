@@ -66,5 +66,8 @@
     <string name="title_activity_asignatura_eliminar">AsignaturaEliminarActivity</string>
     <string name="title_activity_asignacion_ciclo_menu">AsignacionCicloMenuActivity</string>
     <string name="title_activity_asigna_ciclo_insertar">AsignaCicloInsertarActivity</string>
+    <string name="title_activity_asigna_ciclo_consultar">AsignaCicloConsultarActivity</string>
+    <string name="title_activity_asigna_ciclo_actualizar">AsignaCicloActualizarActivity</string>
+    <string name="title_activity_asigna_ciclo_eliminar">AsignaCicloEliminarActivity</string>
 
 </resources>
