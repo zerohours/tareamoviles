@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import sv.ues.fia.moviles.R;
 
 import sv.ues.fia.moviles.db.ControlBDTarea;
+import sv.ues.fia.moviles.modelo.DetalleCategoria;
 import sv.ues.fia.moviles.modelo.Pregunta;
 import android.os.Bundle;
 import android.app.Activity;
@@ -51,11 +52,20 @@ public class PreguntaEliminarActivity extends Activity {
 
 	public void eliminarPregunta(View v) {
 		String regEliminadas;
-		Pregunta preg = new Pregunta();
-		preg.setId_preg(Integer.parseInt(sp.getSelectedItem().toString()));
+		String regEliminadasdos;
+		
+		int valor=Integer.parseInt(sp.getSelectedItem().toString());
 		helper.abrir();
+		Pregunta preg = new Pregunta();
+		preg.setId_preg(valor);
 		regEliminadas = helper.eliminar(preg);
+		
+		DetalleCategoria detcat=new DetalleCategoria();
+		detcat.setId_pregunta(valor);
+		regEliminadasdos=helper.eliminarIdPregunta(detcat);
+		
 		helper.cerrar();
 		Toast.makeText(this, regEliminadas, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, regEliminadasdos, Toast.LENGTH_SHORT).show();
 	}
 }

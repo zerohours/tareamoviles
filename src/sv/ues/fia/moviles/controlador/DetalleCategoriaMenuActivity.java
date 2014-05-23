@@ -10,17 +10,14 @@ import android.widget.ListView;
 
 public class DetalleCategoriaMenuActivity extends ListActivity {
 
-	String[] menu = { "Insertar Detalle Pregunta", "Eliminar Detalle Pregunta",
-			"Consultar Detalle Pregunta", "Actualizar Detalle Pregunta" };
-	String[] activities = { "DetalleCategoriaInsertarActivity",
-			"DetalleCategoriaEliminarActivity", "DetalleCategoriaConsultarActivity",
-			"DetalleCategoriaActualizarActivity" };
+	String[] menu = {"Consultar Detalle Pregunta" };
+	String[] activities = { "DetalleCategoriaConsultarActivity" };
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ListView listView = getListView();
-		listView.setBackgroundColor(Color.rgb(0, 0, 255));
+		listView.setBackgroundColor(Color.rgb(0, 0, 105));
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menu);
 		setListAdapter(adapter);
@@ -30,7 +27,7 @@ public class DetalleCategoriaMenuActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		String nombreValue = activities[position];
-		l.getChildAt(position).setBackgroundColor(Color.rgb(128, 128, 255));
+		l.getChildAt(position).setBackgroundColor(Color.rgb(128, 0, 78));
 		try {
 			Class<?> clase = Class.forName("sv.ues.fia.moviles.controlador.detallecategoria." + nombreValue);
 			Intent inte = new Intent(this, clase);
