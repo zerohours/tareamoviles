@@ -14,10 +14,12 @@ public class TareaActivity extends ListActivity {
 
 	String[] menu = { "Tabla Docente", "Tabla Ciclo", "Tabla Asignatura",
 			"Tabla Asignacion Ciclo", "Tabla Pregunta", "Tabla Categoria",
+			"Tabla Alumno", "Tabla Asignacion Pregunta",
 			"Tabla Detalle Categoria", "LLenar Base de Datos" };
 	String[] activities = { "DocenteMenuActivity", "CicloMenuActivity",
 			"AsignaturaMenuActivity", "AsignacionCicloMenuActivity",
 			"PreguntaMenuActivity", "CategoriaMenuActivity",
+			"AlumnoMenuActivity", "AsignacionPreguntaMenuActivity",
 			"DetalleCategoriaMenuActivity" };
 
 	ControlBDTarea BDhelper;
@@ -27,14 +29,14 @@ public class TareaActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menu));
-		BDhelper=new ControlBDTarea(this);
+		BDhelper = new ControlBDTarea(this);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		
-		if (position != 7) {
+
+		if (position != 9) {
 			String nombreValue = activities[position];
 			try {
 				Class<?> clase = Class
@@ -49,11 +51,11 @@ public class TareaActivity extends ListActivity {
 		} else {
 			// CODIGO PARA LLENAR BASE DE DATOS
 			System.out.println("=== LLENADO DE LA BD ===");
-			//BDhelper = new ControlBDTarea(this);
+			// BDhelper = new ControlBDTarea(this);
 			BDhelper.abrir();
-			 String tost = BDhelper.llenarBD();
+			String tost = BDhelper.llenarBD();
 			BDhelper.cerrar();
-			 Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
 		}
 	}
 
