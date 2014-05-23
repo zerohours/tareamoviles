@@ -31,6 +31,7 @@ public class CategoriaConsultarActivity extends Activity {
 		sp = (Spinner) findViewById(R.id.spinnerConsultar);
 		editnombre = (EditText) findViewById(R.id.editNombre);
 		editDescripcion = (EditText) findViewById(R.id.editDescripcion);
+		
 		ArrayList<Categoria> categoria = new ArrayList<Categoria>();
 
 		try {
@@ -56,7 +57,8 @@ public class CategoriaConsultarActivity extends Activity {
 	public void consultarCategoria(View v) {
 		helper.abrir();
 
-		Categoria categoria = helper.consultarCategoria(sp.getSelectedItem().toString());
+		String[] valor=sp.getSelectedItem().toString().split("-");
+		Categoria categoria = helper.consultarCategoria(valor[0].trim());
 
 		helper.cerrar();
 

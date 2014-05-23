@@ -2,6 +2,7 @@ package sv.ues.fia.moviles.db;
 
 import java.util.ArrayList;
 
+import sv.ues.fia.moviles.bean.BeanPregunta;
 import sv.ues.fia.moviles.modelo.AsignaCiclo;
 import sv.ues.fia.moviles.modelo.Asignatura;
 import sv.ues.fia.moviles.modelo.Categoria;
@@ -29,7 +30,7 @@ public class ControlBDTarea {
 			"EMAIL", "PASSWORD", "NOMBRE", "APELLIDO1", "APELLIDO2",
 			"FECHA_NAC", "TELEFONO", "ESTADO" };
 	private static final String[] camposAsignaCiclo = new String[] { "id",
-	"id_asignatura", "id_docente", "id_ciclo" };	
+			"id_asignatura", "id_docente", "id_ciclo" };
 	private static final String[] camposAsignatura = new String[] {
 			"id_asignatura", "nombre", "codigo", "descripcion" };
 	private static final String[] camposCiclo = new String[] { "id_ciclo",
@@ -67,7 +68,7 @@ public class ControlBDTarea {
 				db.execSQL("CREATE TABLE categoria(id_cat INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
 				db.execSQL("CREATE TABLE detcat( [id_serial] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, id_pregunta integer not null,id_categoria integer not null);");
 				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
-				
+
 				// Asignacion de triggers para la tabla asigna_ciclo
 				db.execSQL("CREATE TRIGGER fk_asignaciclo_docente  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW  BEGIN  SELECT CASE  WHEN ((SELECT id_docente FROM docente WHERE id_docente = NEW.id_docente) IS NULL)  THEN RAISE(ABORT, 'No existe el docente.')  END; END;");
 				db.execSQL("CREATE TRIGGER fk_asignaciclo_ciclo  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW   BEGIN	 SELECT CASE  WHEN ((SELECT id_ciclo FROM ciclo WHERE id_ciclo = NEW.id_ciclo) IS NULL)	THEN RAISE(ABORT, 'No existe el ciclo.')  END;  END;");
@@ -327,7 +328,7 @@ public class ControlBDTarea {
 			return null;
 		}
 	}
-	
+
 	public String insertar(AsignaCiclo asignaciclo) {
 		String regInsertados = "Registro Insertado Nº= ";
 		long contador = 0;
@@ -346,7 +347,7 @@ public class ControlBDTarea {
 		}
 		return regInsertados;
 	}
-	
+
 	public String actualizar(AsignaCiclo asignaciclo) {
 		if (verificarIntegridad(asignaciclo, 16)) {
 			String[] id = { Integer.toString(asignaciclo.getId()) };
@@ -363,7 +364,7 @@ public class ControlBDTarea {
 			return "Registro Cliente " + asignaciclo.getId() + " no existe";
 		}
 	}
-	
+
 	public String eliminar(AsignaCiclo asignaciclo) {
 		String regAfectados = "filas afectadas= ";
 		int contador = 0;
@@ -382,16 +383,16 @@ public class ControlBDTarea {
 		}
 		return regAfectados;
 	}
-	
+
 	public AsignaCiclo consultarAsignaCiclo(String id_asignaciclo) {
 
 		String[] id = { id_asignaciclo };
-		Cursor cursor = db.query("asigna_ciclo", camposAsignaCiclo, "id = ?", id,
-				null, null, null);
+		Cursor cursor = db.query("asigna_ciclo", camposAsignaCiclo, "id = ?",
+				id, null, null, null);
 
 		if (cursor.moveToFirst()) {
 			AsignaCiclo asignaciclo = new AsignaCiclo();
-			
+
 			asignaciclo.setId(cursor.getInt(0));
 			asignaciclo.setIdAsignatura(cursor.getInt(1));
 			asignaciclo.setIdDocente(cursor.getInt(2));
@@ -445,20 +446,20 @@ public class ControlBDTarea {
 		String regInsertados = "Registro Insertado Nº= ";
 		long contador = 0;
 		Cursor reg;
-		reg=db.rawQuery(" select  id_serial from detcat order by id_serial desc limit 1", null);
+		reg = db.rawQuery(
+				" select  id_serial from detcat order by id_serial desc limit 1",
+				null);
 		reg.getCount();
 		int prue = 0;
-		 if(reg.moveToFirst()) {
-			 System.out.println("El valor es: " + reg.getInt(0));
-			 prue=reg.getInt(0)+1;
-		 }
+		if (reg.moveToFirst()) {
+			prue = reg.getInt(0) + 1;// incremetador
+		}
 		ContentValues catedeta = new ContentValues();
-        
-		catedeta.put("id_serial",prue);
+
+		catedeta.put("id_serial", prue);
 		catedeta.put("id_pregunta", detallecategoria.getId_pregunta());
 		catedeta.put("id_categoria", detallecategoria.getId_categoria());
-		
-		
+
 		contador = db.insert("detcat", null, catedeta);
 
 		if (contador == -1 || contador == 0) {
@@ -602,6 +603,40 @@ public class ControlBDTarea {
 		}
 	}
 
+	public void consultarCategoriaAllById(String categorias,ArrayList<BeanPregunta> beanPregunta) {// verifcar
+
+		abrir();
+		
+		try{
+//		Cursor cursor = db.rawQuery(
+//						"SELECT detcat.id_categoria,pregunta.pregunta FROM detcat,pregunta WHERE detcat.id_categoria = ? AND detcat.id_pregunta=pregunta.id_preg",
+//						new String[] { categorias });
+			Cursor cursor = db.rawQuery(
+					"SELECT detcat.id_categoria,pregunta.pregunta FROM detcat,pregunta WHERE detcat.id_categoria = '3' AND detcat.id_pregunta=pregunta.id_preg",
+					null);
+	
+		
+		if (cursor != null && cursor.getCount() > 0) {
+			// Categoria cat;
+			while (cursor.moveToNext()) {
+			
+				BeanPregunta detcat = new BeanPregunta();
+				detcat.setId_categoria(Integer.parseInt(cursor.getString(0)));
+				detcat.setPregunta(cursor.getString(1));
+				beanPregunta.add(detcat);
+			
+			}
+		} else {
+			CharSequence text = "Categoria sin Preguntas!!!";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		}catch(Exception e){}
+		
+	}
+
+	
 	public void consultarPreguntaAll(ArrayList<Pregunta> pregunta) {// verifcar
 		abrir();
 		Cursor cursor = db.rawQuery("select * from pregunta", null);
@@ -737,16 +772,16 @@ public class ControlBDTarea {
 			// if (c.moveToFirst())
 			// return true;
 			// else
-			// return false;	
+			// return false;
 		}
-		
+
 		case 16: {
 			// verificar que exista Asignatura
 			AsignaCiclo asignaciclo2 = (AsignaCiclo) dato;
 			String[] id = { Integer.toString(asignaciclo2.getId()) };
 			abrir();
-			Cursor c2 = db.query("asigna_ciclo", null, "id = ?", id, null, null,
-					null);
+			Cursor c2 = db.query("asigna_ciclo", null, "id = ?", id, null,
+					null, null);
 			if (c2.moveToFirst()) {
 				// Se encontro Ciclo
 				return true;
@@ -811,7 +846,7 @@ public class ControlBDTarea {
 		abrir();
 		db.execSQL("DELETE FROM categoria");
 		db.execSQL("DELETE FROM pregunta");
-	  //  db.execSQL("DELETE FROM detallecategoria");
+		// db.execSQL("DELETE FROM detallecategoria");
 
 		Pregunta pregunta = new Pregunta();
 		for (int i = 0; i < 4; i++) {
@@ -829,8 +864,7 @@ public class ControlBDTarea {
 		}
 		DetalleCategoria detcat = new DetalleCategoria();
 		for (int i = 0; i < 4; i++) {
-			
-		
+
 			detcat.setId_categoria(VDCidcategoria[i]);
 			detcat.setId_pregunta(VDCidpregunta[i]);
 			insertar(detcat);

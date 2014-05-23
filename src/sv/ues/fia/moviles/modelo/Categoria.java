@@ -40,7 +40,7 @@ public class Categoria {
 	}
 
 	public String toString(){
-		return ""+id_cat;
+		return ""+id_cat+"-"+nombre;
 		
 	}
 }
