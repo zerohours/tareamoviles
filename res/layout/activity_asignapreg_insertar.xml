@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView android:text="@string/idAsignapreg" />
+
+        <EditText
+            android:id="@+id/editIdAsignapreg"
+            android:inputType="number"
+            android:maxLength="7" >
+
+            <requestFocus />
+        </EditText>
+    </TableRow>
+    
+    <TableRow>
+
+        <TextView android:text="@string/idPregunta" />
+
+        <EditText
+            android:id="@+id/editIdPregunta"
+            android:inputType="number"
+            android:maxLength="7" />
+    </TableRow>
+    
+    <TableRow>
+
+        <TextView android:text="@string/idCuestionario" />
+
+        <EditText
+            android:id="@+id/editIdCuestionario"
+            android:inputType="number"
+            android:maxLength="7" />
+    </TableRow>
+    
+    <TableRow>
+
+        <TextView android:text="@string/porcentaje" />
+
+        <EditText
+            android:id="@+id/editPorcentaje"
+            android:inputType="number"
+            android:maxLength="7" />
+    </TableRow>
+    
+    <TableRow>
+
+        <TextView android:text="@string/respuesta" />
+
+        <EditText
+            android:id="@+id/editRespuesta"
+            android:inputType="text"
+            android:maxLength="255" />
+    </TableRow>
+
+   
+    <TableRow>
+
+        <TextView android:text="@string/opciones" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:onClick="insertarAsignaPreg"
+            android:text="@string/insertar" />
+
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/limpiar" />
+    </TableRow>
+
+</TableLayout>

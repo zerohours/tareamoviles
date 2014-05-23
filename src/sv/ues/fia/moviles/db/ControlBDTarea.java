@@ -3,7 +3,9 @@ package sv.ues.fia.moviles.db;
 import java.util.ArrayList;
 
 import sv.ues.fia.moviles.bean.BeanPregunta;
+import sv.ues.fia.moviles.modelo.Alumno;
 import sv.ues.fia.moviles.modelo.AsignaCiclo;
+import sv.ues.fia.moviles.modelo.AsignaPregunta;
 import sv.ues.fia.moviles.modelo.Asignatura;
 import sv.ues.fia.moviles.modelo.Categoria;
 import sv.ues.fia.moviles.modelo.Ciclo;
@@ -36,6 +38,21 @@ public class ControlBDTarea {
 	private static final String[] camposCiclo = new String[] { "id_ciclo",
 			"anio", "numero" };
 
+	private static final String[] camposAlumno = new String[] { "ID_ALUMNO",
+			"EMAIL", "PASSWORD", "NOMBRE", "APELLIDO1", "APELLIDO2",
+			"FECHA_NAC", "TELEFONO", "ESTADO" };
+	private static final String[] camposasignapreg = new String[] {
+			"idAsignap", "porcentaje", "respuesta" };
+
+	private static final String[] camposRespPreg = new String[] { "id",
+			"id_alumno", "id_asigna_preg" };
+
+	private static final String[] camposRespCuestionario = new String[] { "id",
+			"id_alumno", "id_cuestionario" };
+
+	private static final String[] camposCuestionario = new String[] {
+			"idCuestionario", "numero", "tipo" };
+
 	private final Context context;
 	private DatabaseHelper DBHelper;
 	private SQLiteDatabase db;
@@ -60,6 +77,10 @@ public class ControlBDTarea {
 				// Creamos toda la estructura de las tablas que tendra la base
 				// de datos.
 
+				db.execSQL("CREATE TABLE alumno (id_alumno integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_alumno));");
+				
+				db.execSQL("CREATE TABLE asigna_pregunta (id integer not null, id_pregunta integer not null, id_cuestionario integer not null, porcentaje integer not null, respuesta VARCHAR(255),primary key (id));");
+				
 				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
 				db.execSQL("CREATE TABLE ciclo (id_ciclo integer not null, anio integer not null, numero integer not null, primary key (id_ciclo));");
 				db.execSQL("CREATE TABLE asignatura (id_asignatura integer not null, nombre varchar(50) not null, codigo varchar(8) not null, descripcion varchar(255) not null, estado integer not null, primary key (id_asignatura));");
@@ -67,8 +88,10 @@ public class ControlBDTarea {
 				db.execSQL("CREATE TABLE pregunta(id_preg integer not null,pregunta varchar(255) NOT NULL, primary key(id_preg));");
 				db.execSQL("CREATE TABLE categoria(id_cat INTEGER NOT NULL PRIMARY KEY,nombre VARCHAR(50),descripcion VARCHAR(255));");
 				db.execSQL("CREATE TABLE detcat( [id_serial] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT, id_pregunta integer not null,id_categoria integer not null);");
-				db.execSQL("create table docente (id_docente integer not null, email varchar(50) not null, password varchar(255) not null, nombre varchar(50) not null, apellido1 varchar(50) not null, apellido2 varchar(50), fecha_nac date, telefono char(10), estado integer not null, primary key (id_docente));");
-
+				
+				db.execSQL("CREATE TABLE responde_pregunta (id_alumno INTEGER NOT NULL, id_asigna INTEGER NOT NULL, PRIMARY KEY(id_alumno, id_asigna));");
+				db.execSQL("CREATE TABLE cuestionario (id integer not null, numero integer not null, tipo VARCHAR(255),primary key (id));");
+				
 				// Asignacion de triggers para la tabla asigna_ciclo
 				db.execSQL("CREATE TRIGGER fk_asignaciclo_docente  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW  BEGIN  SELECT CASE  WHEN ((SELECT id_docente FROM docente WHERE id_docente = NEW.id_docente) IS NULL)  THEN RAISE(ABORT, 'No existe el docente.')  END; END;");
 				db.execSQL("CREATE TRIGGER fk_asignaciclo_ciclo  BEFORE INSERT ON asigna_ciclo  FOR EACH ROW   BEGIN	 SELECT CASE  WHEN ((SELECT id_ciclo FROM ciclo WHERE id_ciclo = NEW.id_ciclo) IS NULL)	THEN RAISE(ABORT, 'No existe el ciclo.')  END;  END;");
@@ -403,6 +426,122 @@ public class ControlBDTarea {
 			return null;
 		}
 	}
+	
+	
+	public String insertar(AsignaPregunta asigpre) {
+
+		String regInsertados = "Registro Insertado Nº= ";
+		long contador = 0;
+		ContentValues asig = new ContentValues();
+
+		asig.put("id", asigpre.getId());
+		asig.put("id_pregunta", asigpre.getIdPregunta());
+		asig.put("id_cuestionario", asigpre.getIdCuestionario());
+		asig.put("porcentaje", asigpre.getPorcentaje());
+		asig.put("respuesta", asigpre.getRespuesta());
+
+		contador = db.insert("asigna_pregunta", null, asig);
+		if (contador == -1 || contador == 0) {
+			regInsertados = "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+		} else {
+			regInsertados = regInsertados + contador;
+		}
+		return regInsertados;
+	}
+	
+
+	// metodos tabla alumno
+
+	// insert
+	public String insertarAlumno(Alumno alumno) {
+		String regInsertados = "Registro Insertado Nº= ";
+		long contador = 0;
+		ContentValues alum = new ContentValues();
+
+		alum.put("ID_ALUMNO", alumno.getId());
+		alum.put("EMAIL", alumno.getEmail());
+		alum.put("PASSWORD", alumno.getPassword());
+		alum.put("NOMBRE", alumno.getNombre());
+		alum.put("APELLIDO1", alumno.getApellido1());
+		alum.put("APELLIDO2", alumno.getApellido2());
+		alum.put("FECHA_NAC", alumno.getFechaNac());
+		alum.put("TELEFONO", alumno.getTelefono());
+		alum.put("ESTADO", alumno.getEstado());
+
+		contador = db.insert("ALUMNO", null, alum);
+		if (contador == -1 || contador == 0) {
+			regInsertados = "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+		} else {
+			regInsertados = regInsertados + contador;
+		}
+		return regInsertados;
+	}
+
+	// ACTUALIZAR
+	public String actualizarAlumno(Alumno alumno) {
+		if (verificarIntegridad(alumno, 101)) {
+			String[] id = { Integer.toString(alumno.getId()) };
+			ContentValues alum = new ContentValues();
+
+			alum.put("ID_ALUMNO", alumno.getId());
+			alum.put("EMAIL", alumno.getEmail());
+			alum.put("PASSWORD", alumno.getPassword());
+			alum.put("NOMBRE", alumno.getNombre());
+			alum.put("APELLIDO1", alumno.getApellido1());
+			alum.put("APELLIDO2", alumno.getApellido2());
+			alum.put("FECHA_NAC", alumno.getFechaNac());
+			alum.put("TELEFONO", alumno.getTelefono());
+			alum.put("ESTADO", alumno.getEstado());
+			db.update("alumno", alum, "id_alumno = ?", id);
+			return "Registro Actualizado Correctamente";
+		} else {
+			return "Registro  " + alumno.getId() + " no existe";
+		}
+	}
+
+	public String eliminarAlumno(Alumno alumno) {
+		String regAfectados = "filas afectadas= ";
+		int contador = 0;
+		if (verificarIntegridad(alumno, 102)) {
+			regAfectados = "0";
+			// aplica para cascada
+			// borrar registros de cliente_vehiculo
+			// contador += db.delete("cliente_vehiculo",
+			// "id_cliente='"+cliente.getIdCliente()+"'",
+			// null); ¨
+		} else {
+			// borrar los registros de cliente
+			contador += db.delete("alumno", "id_alumno='" + alumno.getId()
+					+ "'", null);
+			regAfectados += contador;
+		}
+		return regAfectados;
+	}
+
+	// consultar alumno
+	public Alumno consultarAlumno(String id_alumno) {
+
+		String[] id = { id_alumno };
+		Cursor cursor = db.query("ALUMNO", camposAlumno, "id_alumno = ?", id,
+				null, null, null);
+
+		if (cursor.moveToFirst()) {
+			Alumno alumno = new Alumno();
+
+			alumno.setId(cursor.getInt(0));
+			alumno.setEmail(cursor.getString(1));
+			alumno.setNombre(cursor.getString(3));
+			alumno.setApellido1(cursor.getString(4));
+			alumno.setApellido2(cursor.getString(5));
+			alumno.setTelefono(cursor.getString(7));
+
+			return alumno;
+		} else {
+			return null;
+		}
+	}
+
+	// fin metodos alumno
 
 	/** Insertar **/
 	public String insertar(Pregunta pregunta) {
@@ -807,7 +946,7 @@ public class ControlBDTarea {
 			}
 			return false;
 		}
-
+		
 		case 99: {
 
 			Pregunta pregunta = (Pregunta) dato;
@@ -823,6 +962,35 @@ public class ControlBDTarea {
 				return false;
 			}
 
+		}
+		
+		case 101: {
+			// verificar que exista Docente
+			Alumno alumno2 = (Alumno) dato;
+			String[] id = { Integer.toString(alumno2.getId()) };
+			abrir();
+			Cursor c2 = db.query("alumno", null, "id_alumno = ?", id, null,
+					null, null);
+			if (c2.moveToFirst()) {
+				// Se encontro Docente
+				return true;
+			}
+			return false;
+			
+		}
+		
+		case 102: {
+			// verifica que no existan registros hijos de Alumno
+			// Alumno alumno2 = (Alumno) dato;
+			return false;
+			// Cursor c = db.query(true, "cliente_vehiculo",
+			// new String[] { "id_alumno" },
+			// "id_docente='" + docente2.getId() + "'", null, null,
+			// null, null, null);
+			// if (c.moveToFirst())
+			// return true;
+			// else
+			// return false;
 		}
 
 		case 1000: {

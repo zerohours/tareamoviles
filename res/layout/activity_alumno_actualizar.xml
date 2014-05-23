@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView android:text="@string/idAlumno" />
+
+        <EditText
+            android:id="@+id/editIdAlumno"
+            android:inputType="number"
+            android:maxLength="7" >
+
+            <requestFocus />
+        </EditText>
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idEmail" />
+
+        <EditText
+            android:id="@+id/editIdEmail"
+            android:inputType="textEmailAddress" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idPass" />
+
+        <EditText
+            android:id="@+id/editIdPass"
+            android:inputType="textPassword" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idNombre" />
+
+        <EditText
+            android:id="@+id/editIdNombre"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idApell1" />
+
+        <EditText
+            android:id="@+id/editIdApell1"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idApell2" />
+
+        <EditText
+            android:id="@+id/editIdApell2"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idFechaNac" />
+
+        <EditText
+            android:id="@+id/editIdFechaNac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:inputType="date" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idTelefono" />
+
+        <EditText
+            android:id="@+id/editIdTelefono"
+            android:inputType="phone" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="@string/idEstado" />
+
+        <CheckBox
+            android:id="@+id/editIdEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/idEstado" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="@string/opciones" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:onClick="actualizarAlumno"
+            android:text="@string/actualizar" />
+
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/limpiar" />
+    </TableRow>
+
+
+</TableLayout>

@@ -162,6 +162,34 @@
             android:name="sv.ues.fia.moviles.controlador.asignaciclo.AsignaCicloEliminarActivity"
             android:label="@string/title_activity_asigna_ciclo_eliminar" >
         </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.AlumnoMenuActivity"
+            android:label="@string/title_activity_alumno_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.alumno.AlumnoInsertarActivity"
+            android:label="@string/title_activity_alumno_insertar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.alumno.AlumnoConsultarActivity"
+            android:label="@string/title_activity_alumno_consultar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.alumno.AlumnoActualizarActivity"
+            android:label="@string/title_activity_alumno_actualizar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.alumno.AlumnoEliminarActivity"
+            android:label="@string/title_activity_alumno_eliminar" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.AsignacionPreguntaMenuActivity"
+            android:label="@string/title_activity_asignacion_pregunta_menu" >
+        </activity>
+        <activity
+            android:name="sv.ues.fia.moviles.controlador.asignapreg.AsignapregInsertarActivity"
+            android:label="@string/title_activity_asignapreg_insertar" >
+        </activity>
     </application>
 
 </manifest>

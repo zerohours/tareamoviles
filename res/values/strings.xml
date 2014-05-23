@@ -28,11 +28,11 @@
     <string name="eliminar">Eliminar</string>
     <string name="actualizar">Actualizar</string>
     <string name="consultar">Consultar</string>
-	<string name="idPregunta">Id Pregunta</string>
-	<string name="pregunta">Pregunta</string>
-	<string name="idCategoria">Id Categoria</string>
-	<string name="nombre">Nombre</string>
-	<string name="descripcion">Descripcion</string>
+    <string name="idPregunta">Id Pregunta</string>
+    <string name="pregunta">Pregunta</string>
+    <string name="idCategoria">Id Categoria</string>
+    <string name="nombre">Nombre</string>
+    <string name="descripcion">Descripcion</string>
     <string name="idEmail">Email</string>
     <string name="idPass">Password</string>
     <string name="idNombreDoc">Nombre</string>
@@ -69,5 +69,21 @@
     <string name="title_activity_asigna_ciclo_consultar">AsignaCicloConsultarActivity</string>
     <string name="title_activity_asigna_ciclo_actualizar">AsignaCicloActualizarActivity</string>
     <string name="title_activity_asigna_ciclo_eliminar">AsignaCicloEliminarActivity</string>
+    <string name="title_activity_alumno_menu">AlumnoMenuActivity</string>
+    <string name="title_activity_alumno_insertar">AlumnoInsertarActivity</string>
+    <string name="idAlumno">Id Alumno</string>
+    <string name="id_categoria">Id Categoria</string>
+    <string name="idrp">Id</string>
+    <string name="idAsignapreg">Id</string>
+    <string name="porcentaje">Porcentaje</string>
+    <string name="respuesta">Respuesta</string>
+    <string name="idCuestionario">Id Cuestionario</string>
+    <string name="numero">Numero</string>
+    <string name="tipo">Tipo</string>
+    <string name="title_activity_alumno_consultar">AlumnoConsultarActivity</string>
+    <string name="title_activity_alumno_actualizar">AlumnoActualizarActivity</string>
+    <string name="title_activity_alumno_eliminar">AlumnoEliminarActivity</string>
+    <string name="title_activity_asignacion_pregunta_menu">AsignacionPreguntaMenuActivity</string>
+    <string name="title_activity_asignapreg_insertar">AsignapregInsertarActivity</string>
 
 </resources>
